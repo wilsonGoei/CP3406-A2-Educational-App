@@ -42,6 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="@drawable/menu_button"
+        android:onClick="leaderBoardsScreen"
         android:text="Leaderboards"
         android:textSize="30sp"
         android:textStyle="bold" />

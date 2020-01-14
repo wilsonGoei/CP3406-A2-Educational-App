@@ -12,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class FishView extends View {
 
     private Bitmap fish[] = new Bitmap[2];
@@ -38,7 +40,19 @@ public class FishView extends View {
 
     private Paint scorePaint = new Paint();
 
+
     private Bitmap life[] = new Bitmap[2];
+
+
+    private int firstNum;
+    private int secondNum;
+    private int result;
+    private int falseAnswer;
+
+    private Paint questionPaint = new Paint();
+
+    private Random random;
+
 
     public FishView(Context context) {
         super(context);
@@ -49,12 +63,16 @@ public class FishView extends View {
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 
         yellowPaint.setColor(Color.YELLOW);
+        yellowPaint.setTextSize(70);
+        yellowPaint.setTypeface(Typeface.DEFAULT_BOLD);
         yellowPaint.setAntiAlias(false);
 
         greenPaint.setColor(Color.GREEN);
         greenPaint.setAntiAlias(false);
 
         redPaint.setColor(Color.RED);
+        redPaint.setTextSize(70);
+        redPaint.setTypeface(Typeface.DEFAULT_BOLD);
         redPaint.setAntiAlias(false);
 
         scorePaint.setColor(Color.WHITE);
@@ -62,12 +80,27 @@ public class FishView extends View {
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
 
+
         life[0] = BitmapFactory.decodeResource(getResources(), R.drawable.hearts);
         life[1] = BitmapFactory.decodeResource(getResources(), R.drawable.heart_grey);
 
         fishY = 550;
         score = 0;
         lifeCounter = 3;
+
+        questionPaint.setColor(Color.WHITE);
+        questionPaint.setTextSize(70);
+        questionPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        questionPaint.setAntiAlias(true);
+
+
+        random = new Random();
+        firstNum = random.nextInt(100);
+        secondNum = random.nextInt(100);
+        result = firstNum + secondNum;
+        falseAnswer = random.nextInt(100);
+        if (falseAnswer == result)
+            falseAnswer = random.nextInt(100);
     }
 
     @Override
@@ -104,18 +137,23 @@ public class FishView extends View {
         if (hitBallChecker(yellowX,yellowY)){
             score = score + 10;
             yellowX = -100;
+            firstNum = random.nextInt(100);
+            secondNum = random.nextInt(100);
+            result = firstNum + secondNum;
         }
 
         if (yellowX < 0){
             yellowX = canvasWidth + 21;
             yellowY = (int) Math.floor(Math.random() * (maxFishY - minFishY)) + minFishY;
         }
-        canvas.drawCircle(yellowX, yellowY, 25, yellowPaint);
+        canvas.drawText(""+result, yellowX, yellowY, yellowPaint);
 
 
         greenX = greenX - greenSpeed;
         if (hitBallChecker(greenX,greenY)){
-            score = score + 20;
+            lifeCounter++;
+            if (lifeCounter > 3)
+                lifeCounter = 3;
             greenX = -100;
         }
 
@@ -123,7 +161,7 @@ public class FishView extends View {
             greenX = canvasWidth + 21;
             greenY = (int) Math.floor(Math.random() * (maxFishY - minFishY)) + minFishY;
         }
-        canvas.drawCircle(greenX, greenY, 10, greenPaint);
+        canvas.drawCircle(greenX, greenY, 20, greenPaint);
 
         redX = redX - redSpeed;
         if (hitBallChecker(redX,redY)){
@@ -143,11 +181,19 @@ public class FishView extends View {
         if (redX < 0){
             redX = canvasWidth + 21;
             redY = (int) Math.floor(Math.random() * (maxFishY - minFishY)) + minFishY;
+            falseAnswer = random.nextInt(100);
+            if (falseAnswer == result)
+                falseAnswer = random.nextInt(100);
         }
-        canvas.drawCircle(redX, redY, 30, redPaint);
+
+        canvas.drawText(""+falseAnswer, redX, redY, redPaint);
+
+
+        canvas.drawText("" + firstNum + "+" + secondNum,425,200,questionPaint);
 
 
         canvas.drawText("Score: " + score, 20, 60, scorePaint);
+
 
         for (int i = 0; i < 3; i++){
             int x = (int) (580 + life[0].getWidth() * 1.5 * i);

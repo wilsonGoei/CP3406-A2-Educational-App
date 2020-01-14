@@ -12,7 +12,7 @@ public class game_activity extends AppCompatActivity {
 
     private FishView gameView;
     private Handler handler = new Handler();
-    private final static long Interval = 30;
+    private final static long Interval = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

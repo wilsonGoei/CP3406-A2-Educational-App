@@ -33,6 +33,19 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/toMainMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/playAgainButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/menu_button"
+        android:onClick="mainMenu"
+        android:text="Main Menu"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"

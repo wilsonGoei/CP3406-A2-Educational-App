@@ -17,6 +17,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(toPlayScreen);
     }
 
+    public void leaderBoardsScreen(View view){
+        Intent toLeaderBoards = new Intent(MainActivity.this, Leaderboards.class);
+        startActivity(toLeaderBoards);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
