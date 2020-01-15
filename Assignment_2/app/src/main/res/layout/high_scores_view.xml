@@ -6,4 +6,5 @@
     android:paddingTop="2dp"
     android:paddingBottom="3dp"
     android:gravity="center_horizontal"
-    android:textSize="30sp" />
+    android:textSize="30sp"
+    android:textColor="@color/lightYellow"/>

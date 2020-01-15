@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/splash_darker">
+    android:background="@drawable/splash">
+
 
     <TextView
         android:id="@+id/gameTitle"
@@ -57,7 +58,8 @@
         android:background="@drawable/menu_button"
         android:text="Option"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:onClick="settingsScreen"/>
 
 
 </RelativeLayout>

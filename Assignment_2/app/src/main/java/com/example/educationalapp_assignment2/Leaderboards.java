@@ -2,6 +2,7 @@ package com.example.educationalapp_assignment2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -43,5 +44,8 @@ public class Leaderboards extends AppCompatActivity {
         ListView listView = (ListView)findViewById(R.id.highScoresList);
         listView.setAdapter(myAdapter);
         listView.setDivider(null);
+
+        MediaPlayer backgroundMusic = MediaPlayer.create(Leaderboards.this,R.raw.background_music);
+        backgroundMusic.start();
     }
 }
