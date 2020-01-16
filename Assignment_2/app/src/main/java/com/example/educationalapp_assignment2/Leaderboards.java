@@ -45,7 +45,5 @@ public class Leaderboards extends AppCompatActivity {
         listView.setAdapter(myAdapter);
         listView.setDivider(null);
 
-        MediaPlayer backgroundMusic = MediaPlayer.create(Leaderboards.this,R.raw.background_music);
-        backgroundMusic.start();
     }
 }

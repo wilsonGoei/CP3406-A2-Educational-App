@@ -7,6 +7,13 @@
     tools:context=".MainActivity"
     android:background="@drawable/splash">
 
+    <ImageView
+        android:id="@+id/shareButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="280dp"
+        android:src="@drawable/share_button"/>
 
     <TextView
         android:id="@+id/gameTitle"

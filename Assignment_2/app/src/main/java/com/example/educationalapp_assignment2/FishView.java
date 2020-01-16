@@ -10,13 +10,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.util.TimeUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class FishView extends View {
 
@@ -57,9 +55,6 @@ public class FishView extends View {
 
     private Random random;
 
-//    private int counter = 0;
-
-    private MediaPlayer backgroundMusic;
     private MediaPlayer getPointSound;
     private MediaPlayer getLifeSound;
     private MediaPlayer lostLifeSound;
@@ -72,8 +67,21 @@ public class FishView extends View {
     private int red3X, red3Y, red3Speed = 20;
     private int falseAnswer3;
 
+    private int counter;
+    private Bitmap square;
+    private Bitmap showButton;
+
+    private Paint timerPaint = new Paint();
+    private Paint invisiblePaint = new Paint();
+
     public FishView(Context context) {
         super(context);
+
+        counter = 0;
+
+        square = BitmapFactory.decodeResource(getResources(), R.drawable.square);
+        showButton = BitmapFactory.decodeResource(getResources(), R.drawable.share_button);
+
 
         fish[0] = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
         fish[1] = BitmapFactory.decodeResource(getResources(), R.drawable.fish2);
@@ -87,6 +95,14 @@ public class FishView extends View {
 
         greenPaint.setColor(Color.GREEN);
         greenPaint.setAntiAlias(false);
+
+        timerPaint.setColor(Color.BLUE);
+        timerPaint.setTextSize(70);
+        timerPaint.setAntiAlias(false);
+
+        invisiblePaint.setColor(Color.TRANSPARENT);
+        invisiblePaint.setTextSize(70);
+        invisiblePaint.setAntiAlias(false);
 
         redPaint.setColor(Color.YELLOW);
         redPaint.setTextSize(70);
@@ -120,8 +136,6 @@ public class FishView extends View {
         if (falseAnswer == result)
             falseAnswer = random.nextInt(100);
 
-        backgroundMusic = MediaPlayer.create(getContext(),R.raw.background_music);
-        backgroundMusic.start();
 
         sharedPreferences = context.getApplicationContext().getSharedPreferences("difficulties", Context.MODE_PRIVATE);
         difficulty = sharedPreferences.getString("difficulty","easy");
@@ -135,6 +149,7 @@ public class FishView extends View {
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
 
+        counter++;
 
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
@@ -164,6 +179,8 @@ public class FishView extends View {
 
         yellowX = yellowX - yellowSpeed;
         if (hitBallChecker(yellowX,yellowY)){
+            counter = 0;
+
             score = score + 10;
             yellowX = -100;
             firstNum = random.nextInt(100);
@@ -293,18 +310,13 @@ public class FishView extends View {
 
         }
 
-        
+
         canvas.drawText("" + firstNum + "+" + secondNum,425,200,questionPaint);
-//        for (int j=0; j<5;j++){
-//            counter++;
-//            try {
-//                Thread.sleep(1500);
-//            } catch(InterruptedException e) {
-//                System.out.println("got interrupted!");
-//            }
-//        }
-//        if (counter == 5)
-//            canvas.drawRect(425,200,700,300,greenPaint);
+        System.out.println(counter);
+        if(counter >100){
+            canvas.drawBitmap(square,290,80,greenPaint);
+//            canvas.drawBitmap(showButton, 100,160,greenPaint);
+        }
 
         canvas.drawText("Score: " + score, 20, 60, scorePaint);
 
@@ -332,10 +344,22 @@ public class FishView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+//        float x = event.getX();
+//        float y = event.getY();
+//        Log.i("coordinate","x: "+x+"y:"+y);
+
+
         if (event.getAction() == MotionEvent.ACTION_DOWN){
             touch = true;
 
             fishSpeed = -22;
+
+//            if (counter > 100){
+//                if (x > 100 && x < 200 && y > 160 && y < 170){
+//                    score -= 10;
+//                }
+//            }
         }
         return true;
     }

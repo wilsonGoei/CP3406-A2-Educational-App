@@ -6,11 +6,16 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,13 +25,15 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
 
     private Spinner gameMode;
 
+    private Switch musicSwitch;
+    private Boolean musicStatus;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        MediaPlayer backgroundMusic = MediaPlayer.create(Settings.this,R.raw.background_music);
-        backgroundMusic.start();
 
         gameMode = (Spinner)findViewById(R.id.modeSpinner);
 
@@ -40,6 +47,38 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, difficulties);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gameMode.setAdapter(dataAdapter);
+
+        musicSwitch = (Switch)findViewById(R.id.musicSwitch);
+        musicSwitch.setChecked(true);
+        musicStatus = musicSwitch.isChecked();
+        SharedPreferences sharedPreferences = Settings.this.getSharedPreferences("songsBoolean",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("songsBoolean","true");
+        editor.apply();
+        Log.i("status",musicStatus.toString());
+        musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    musicStatus = musicSwitch.isChecked();
+                    SharedPreferences sharedPreferences = Settings.this.getSharedPreferences("songsBoolean",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("songsBoolean","true");
+                    editor.apply();
+                    Log.i("status",musicStatus.toString());
+                }
+                else {
+                    musicStatus = musicSwitch.isChecked();
+                    SharedPreferences sharedPreferences = Settings.this.getSharedPreferences("songsBoolean",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("songsBoolean","false");
+                    editor.apply();
+                    Log.i("status",musicStatus.toString());
+                }
+            }
+        });
+
+
     }
 
     @Override
