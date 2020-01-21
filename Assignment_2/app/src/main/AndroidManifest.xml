@@ -9,7 +9,9 @@
         android:roundIcon="@drawable/splash_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Settings"></activity>
+        <activity android:name=".Instruction"></activity>
+        <activity android:name=".pause" android:theme="@style/Theme.Transparent"/>
+        <activity android:name=".Settings" />
         <activity android:name=".Leaderboards" />
         <activity android:name=".GameOverActivity" />
         <activity android:name=".Splash">

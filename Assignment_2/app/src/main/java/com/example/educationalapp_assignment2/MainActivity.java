@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private String songsBoolean;
 
     public void playScreen(View view){
-        Intent toPlayScreen = new Intent(MainActivity.this, game_activity.class);
+        Intent toPlayScreen = new Intent(MainActivity.this, Instruction.class);
         startActivity(toPlayScreen);
     }
 
@@ -73,4 +73,10 @@ public class MainActivity extends AppCompatActivity {
             Log.i("statusStartOff",songsBoolean);
         }
     }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        backGroundMusic.pause();
+//    }
 }

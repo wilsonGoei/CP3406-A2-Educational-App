@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -74,6 +75,10 @@ public class FishView extends View {
     private Paint timerPaint = new Paint();
     private Paint invisiblePaint = new Paint();
 
+    private Bitmap pauseButton;
+
+//    public game_activity gameActivity;
+
     public FishView(Context context) {
         super(context);
 
@@ -81,6 +86,8 @@ public class FishView extends View {
 
         square = BitmapFactory.decodeResource(getResources(), R.drawable.square);
         showButton = BitmapFactory.decodeResource(getResources(), R.drawable.share_button);
+
+        pauseButton = BitmapFactory.decodeResource(getResources(), R.drawable.yellow_pause_button);
 
 
         fish[0] = BitmapFactory.decodeResource(getResources(), R.drawable.fish1);
@@ -143,6 +150,7 @@ public class FishView extends View {
         falseAnswer2 = random.nextInt(100);
         if (falseAnswer2 == result)
             falseAnswer2 = random.nextInt(100);
+
     }
 
     @Override
@@ -315,12 +323,11 @@ public class FishView extends View {
         System.out.println(counter);
         if(counter >100){
             canvas.drawBitmap(square,290,80,greenPaint);
-//            canvas.drawBitmap(showButton, 100,160,greenPaint);
         }
 
         canvas.drawText("Score: " + score, 20, 60, scorePaint);
 
-
+        canvas.drawBitmap(pauseButton, -500, 1700, questionPaint);
 
         for (int i = 0; i < 3; i++){
             int x = (int) (580 + life[0].getWidth() * 1.5 * i);
@@ -345,9 +352,9 @@ public class FishView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-//        float x = event.getX();
-//        float y = event.getY();
-//        Log.i("coordinate","x: "+x+"y:"+y);
+        float x = event.getX();
+        float y = event.getY();
+        Log.i("coordinate","x: "+x+"y:"+y);
 
 
         if (event.getAction() == MotionEvent.ACTION_DOWN){
@@ -355,11 +362,7 @@ public class FishView extends View {
 
             fishSpeed = -22;
 
-//            if (counter > 100){
-//                if (x > 100 && x < 200 && y > 160 && y < 170){
-//                    score -= 10;
-//                }
-//            }
+
         }
         return true;
     }

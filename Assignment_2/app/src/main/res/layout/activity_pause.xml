@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pause"
+    android:background="@drawable/pause_background"
+    android:id="@+id/pauseBackground">
+
+    <LinearLayout
+        android:id="@+id/pauseLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="75dp">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/yellow_pause_button"/>
+
+        <TextView
+            android:id="@+id/pauseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="PAUSE"
+            android:textColor="@color/lightYellow"
+            android:textSize="50sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:layout_below="@+id/pauseLayout"
+        android:background="@drawable/menu_button"
+        android:text="CONTINUE"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:onClick="continueAgain"
+        />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:layout_below="@+id/continueButton"
+        android:background="@drawable/menu_button"
+        android:text="EXIT"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:onClick="exit"
+        />
+
+</RelativeLayout>
